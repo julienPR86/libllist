@@ -131,6 +131,6 @@ void	llistDestroy(t_llist **head, void (*detroyDataFn)(void *data))
 	return ;
 }
 
-# endif
+# endif //LIBLLIST_IMPLEMENTATION
 
-#endif
+#endif //LIBLLIST_H
