@@ -116,6 +116,8 @@ t_llist	*llistDup(t_llist *head, t_dupFn dup, t_destroyFn destroy)
 {
 	t_llist	*duped = NULL;
 
+	if (NULL == dup)
+		destroy = NULL;
 	while (head)
 	{
 		void	*data = NULL;
