@@ -28,6 +28,11 @@ t_llist	*llistNew(void  *data);
 size_t	llistLength(t_llist *head);
 
 /**
+ * @brief Returns the @a nth node in @a head, starting from 0.
+ */
+t_llist	*llistGet(t_llist *head, size_t n);
+
+/**
  * @brief Appends @a lst at the end of @a head.
  * @return @a head on success, or NULL on failure.
  */
@@ -71,6 +76,18 @@ size_t	llistLength(t_llist *head)
 		head = head->next;
 	}
 	return (length);
+}
+
+t_llist	*llistGet(t_llist *head, size_t n)
+{
+	size_t	index = 0;
+
+	while (head && index < n)
+	{
+		head = head->next;
+		++index;
+	}
+	return (head);	
 }
 
 t_llist	*llistPushBack(t_llist **head, t_llist *lst)
