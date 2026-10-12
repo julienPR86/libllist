@@ -23,6 +23,11 @@ typedef struct s_llist
 t_llist	*llistNew(void  *data);
 
 /**
+ * @brief Returns the number of nodes in @a head.
+ */
+size_t	llistLength(t_llist *head);
+
+/**
  * @brief Appends @a lst at the end of @a head.
  * @return @a head on success, or NULL on failure.
  */
@@ -40,11 +45,6 @@ t_llist	*llistPop(t_llist **head);
  */
 void	llistDestroy(t_llist **head, void (*detroyDataFn)(void *data));
 
-/**
- * @brief Returns the number of nodes in @a head.
- */
-size_t	llistLength(t_llist *head);
-
 # ifdef LIBLLIST_IMPLEMENTATION
 
 t_llist	*llistNew(void *data)
@@ -57,6 +57,20 @@ t_llist	*llistNew(void *data)
 	new->data = data;
 	new->next = NULL;
 	return (new);
+}
+
+size_t	llistLength(t_llist *head)
+{
+	size_t	length = 0;
+
+	if (NULL == head)
+		return (0);
+	while (head)
+	{
+		++length;
+		head = head->next;
+	}
+	return (length);
 }
 
 t_llist	*llistPushBack(t_llist **head, t_llist *lst)
@@ -115,20 +129,6 @@ void	llistDestroy(t_llist **head, void (*detroyDataFn)(void *data))
 	}
 	*head = NULL;
 	return ;
-}
-
-size_t	llistLength(t_llist *head)
-{
-	size_t	length = 0;
-
-	if (NULL == head)
-		return (0);
-	while (head)
-	{
-		++length;
-		head = head->next;
-	}
-	return (length);
 }
 
 # endif
