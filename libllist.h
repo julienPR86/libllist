@@ -33,6 +33,12 @@ size_t	llistLength(t_llist *head);
 t_llist	*llistGet(t_llist *head, size_t n);
 
 /**
+ * @brief Duplicates @a head, meaning it creates a new t_llist, with duplicated data.
+ * @return A pointer to the duplicated t_llist on success, or NULL on failure.
+ */
+t_llist	*llistDup(t_llist *head, void *(*dupDataFn)(void *data), void (*detroyDataFn)(void *data));
+
+/**
  * @brief Appends @a lst at the end of @a head.
  * @return @a head on success, or NULL on failure.
  */
@@ -88,6 +94,37 @@ t_llist	*llistGet(t_llist *head, size_t n)
 		++index;
 	}
 	return (head);	
+}
+
+t_llist	*llistDup(t_llist *head, void *(*dupDataFn)(void *data), void (*destroyDataFn)(void *data))
+{
+	t_llist	*dup = NULL;
+
+	while (head)
+	{
+		void	*data = NULL;
+		t_llist	*cpy;
+
+		data = head->data;
+		if (dupDataFn)
+		{
+			data = dupDataFn(head->data);
+			if (NULL == data)
+			{
+				llistDestroy(&dup, destroyDataFn);
+				return (NULL);
+			}
+		}
+		cpy = llistNew(data);
+		if (NULL == cpy)
+		{
+			llistDestroy(&dup, destroyDataFn);
+			return (NULL);
+		}
+		llistPushBack(&dup, cpy);
+		head = head->next;
+	}
+	return (dup);
 }
 
 t_llist	*llistPushBack(t_llist **head, t_llist *lst)
