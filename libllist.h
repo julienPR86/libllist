@@ -13,13 +13,13 @@
 /**
  * @brief A pointer to a function that can destroys t_llist data.
  */
-typedef void (*t_destroyFn)(void *data);
+typedef void (*t_llistDestroyFn)(void *data);
 
 /**
  * @brief A pointer to a function that can duplicate t_llist data.
  * @return A pointer to the duplicated data on success, or NULL on failure.
  */
-typedef void *(*t_dupFn)(void *data);
+typedef void *(*t_llistDupFn)(void *data);
 
 
 typedef struct s_llist
@@ -51,7 +51,7 @@ t_llist	*llistGet(t_llist *head, size_t n);
  * @param destroy If not NULL, frees each allocated node's data in case of error, or does noting otherwise.
  * @return A pointer to the duplicated t_llist on success, or NULL on failure.
  */
-t_llist	*llistDup(t_llist *head, t_dupFn dup, t_destroyFn destroy);
+t_llist	*llistDup(t_llist *head, t_llistDupFn dup, t_llistDestroyFn destroy);
 
 /**
  * @brief Appends @a lst at the end of @a head.
@@ -70,7 +70,7 @@ t_llist	*llistPop(t_llist **head);
  * @brief Destroys @a head and all its data using @a destroyDataFn, and sets @a head to NULL;
  * @param destroy If not NULL, frees each allocated node's data, or does noting otherwise.
  */
-void	llistDestroy(t_llist **head, t_destroyFn destroy);
+void	llistDestroy(t_llist **head, t_llistDestroyFn destroy);
 
 # ifdef LIBLLIST_IMPLEMENTATION
 
@@ -112,7 +112,7 @@ t_llist	*llistGet(t_llist *head, size_t n)
 	return (head);	
 }
 
-t_llist	*llistDup(t_llist *head, t_dupFn dup, t_destroyFn destroy)
+t_llist	*llistDup(t_llist *head, t_llistDupFn dup, t_llistDestroyFn destroy)
 {
 	t_llist	*duped = NULL;
 
@@ -183,7 +183,7 @@ t_llist	*llistPop(t_llist **head)
 	return (last);
 }
 
-void	llistDestroy(t_llist **head, t_destroyFn destroy)
+void	llistDestroy(t_llist **head, t_llistDestroyFn destroy)
 {
 	t_llist	*cpy;
 
