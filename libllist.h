@@ -14,18 +14,18 @@
 /**
  * @brief A pointer to a function that can destroys t_llist data.
  */
-typedef void (*t_llistDestroyFn)(void *data);
+typedef void	(*t_llistDestroyFn)(void *data);
 
 /**
  * @brief A pointer to a function that can destroys t_llist data.
  */
-typedef bool (*t_llistGetFn)(void *data);
+typedef bool	(*t_llistGetFn)(void *data);
 
 /**
  * @brief A pointer to a function that can duplicate t_llist data.
  * @return A pointer to the duplicated data on success, or NULL on failure.
  */
-typedef void *(*t_llistDupFn)(void *data);
+typedef void	*(*t_llistDupFn)(void *data);
 
 
 typedef struct s_llist
