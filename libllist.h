@@ -17,7 +17,7 @@
 typedef void	(*t_llistDestroyFn)(void *data);
 
 /**
- * @brief A pointer to a function that can destroys t_llist data.
+ * @brief A pointer to a function that returns true of false based on the data passed in as an argument.
  */
 typedef bool	(*t_llistGetFn)(void *data);
 
