@@ -9,11 +9,17 @@
 # define LIBLLIST_H
 
 # include <stdlib.h>
+# include <stdbool.h>
 
 /**
  * @brief A pointer to a function that can destroys t_llist data.
  */
 typedef void (*t_llistDestroyFn)(void *data);
+
+/**
+ * @brief A pointer to a function that can destroys t_llist data.
+ */
+typedef bool (*t_llistGetFn)(void *data);
 
 /**
  * @brief A pointer to a function that can duplicate t_llist data.
@@ -44,6 +50,12 @@ size_t	llistLength(t_llist *head);
  * @brief Returns the @a nth node in @a head, starting from 0.
  */
 t_llist	*llistGet(t_llist *head, size_t n);
+
+/**
+ * @brief Returns the first node in @a head for which @a get returns true.
+ * @return A pointer to the matching node, or NULL if no matching node is found.
+ */
+t_llist	*llistGetFor(t_llist *head, t_llistGetFn get);
 
 /**
  * @brief Duplicates @a head, meaning it creates a new t_llist, with duplicated data.
@@ -110,6 +122,19 @@ t_llist	*llistGet(t_llist *head, size_t n)
 		++index;
 	}
 	return (head);	
+}
+
+t_llist	*llistGetFor(t_llist *head, t_llistGetFn get)
+{
+	if (NULL == head || NULL == get)
+		return (NULL);
+	while (head)
+	{
+		if (get(head->data))
+			return (head);
+		head = head->next;
+	}
+	return (NULL);
 }
 
 t_llist	*llistDup(t_llist *head, t_llistDupFn dup, t_llistDestroyFn destroy)
