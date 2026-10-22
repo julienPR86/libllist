@@ -47,7 +47,7 @@ t_llist	*llistGet(t_llist *head, size_t n);
 
 /**
  * @brief Duplicates @a head, meaning it creates a new t_llist, with duplicated data.
- * @param dup If not NULL, duplicates each node data, or copies each data pointer othewise.
+ * @param dup If not NULL, duplicates each node data, or copies each data pointer otherwise.
  * @param destroy If not NULL, frees each allocated node's data in case of error, or does noting otherwise.
  * @return A pointer to the duplicated t_llist on success, or NULL on failure.
  */
@@ -62,7 +62,7 @@ t_llist	*llistPushBack(t_llist **head, t_llist *lst);
 /**
  * @brief Removes a node at the end of @a head.
  * @warning If @a head posses only one node, sets @a *head to NULL.
- * @return A pointer to the poped node or NULL if head is empty.
+ * @return A pointer to the popped node or NULL if head is empty.
  */
 t_llist	*llistPop(t_llist **head);
 
