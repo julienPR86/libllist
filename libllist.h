@@ -18,7 +18,7 @@ typedef void	(*t_llistDestroyFn)(void *data);
 /**
  * @brief A pointer to a function that returns a negative value if @a cur is less than @a data, a positive value if @a cur is greater than @a data, or 0 if they are equal.
  */
-typedef int	(*t_llistCompareFn)(void *cur, void *data);
+typedef int	(*t_llistCompareFn)(const void *cur, const void *data);
 
 /**
  * @brief A pointer to a function that can duplicate t_llist data.
@@ -56,7 +56,7 @@ t_llist	*llistGet(t_llist *head, size_t n);
  * @param arg The argument that will be passed in as the data parameter in the @a compare function.
  * @return A pointer to the matching node, or NULL if no matching node is found.
  */
-t_llist	*llistGetFor(t_llist *head, t_llistCompareFn compare, void *arg);
+t_llist	*llistGetFor(t_llist *head, t_llistCompareFn compare, const void *arg);
 
 /**
  * @brief Duplicates @a head, meaning it creates a new t_llist, with duplicated data.
@@ -125,7 +125,7 @@ t_llist	*llistGet(t_llist *head, size_t n)
 	return (head);	
 }
 
-t_llist	*llistGetFor(t_llist *head, t_llistCompareFn compare, void *arg)
+t_llist	*llistGetFor(t_llist *head, t_llistCompareFn compare, const void *arg)
 {
 	if (NULL == head || NULL == compare)
 		return (NULL);
