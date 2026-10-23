@@ -9,7 +9,6 @@
 # define LIBLLIST_H
 
 # include <stdlib.h>
-# include <stdbool.h>
 
 /**
  * @brief A pointer to a function that can destroys t_llist data.
@@ -17,9 +16,9 @@
 typedef void	(*t_llistDestroyFn)(void *data);
 
 /**
- * @brief A pointer to a function that returns true of false based on the data passed in as an argument.
+ * @brief A pointer to a function that returns a negative value if @a cur is less than @a data, a positive value if @a cur is greater than @a data, or 0 if they are equal.
  */
-typedef bool	(*t_llistGetFn)(void *data);
+typedef int	(*t_llistCompareFn)(void *cur, void *data);
 
 /**
  * @brief A pointer to a function that can duplicate t_llist data.
@@ -52,10 +51,12 @@ size_t	llistLength(t_llist *head);
 t_llist	*llistGet(t_llist *head, size_t n);
 
 /**
- * @brief Returns the first node in @a head for which @a get returns true.
+ * @brief Returns the first node in @a head that is equal to @a arg.
+ * @param compare Function pointer to a compare function. It compares every nodes data in @a head with @a arg.
+ * @param arg The argument that will be passed in as the data parameter in the @a compare function.
  * @return A pointer to the matching node, or NULL if no matching node is found.
  */
-t_llist	*llistGetFor(t_llist *head, t_llistGetFn get);
+t_llist	*llistGetFor(t_llist *head, t_llistCompareFn compare, void *arg);
 
 /**
  * @brief Duplicates @a head, meaning it creates a new t_llist, with duplicated data.
@@ -124,13 +125,13 @@ t_llist	*llistGet(t_llist *head, size_t n)
 	return (head);	
 }
 
-t_llist	*llistGetFor(t_llist *head, t_llistGetFn get)
+t_llist	*llistGetFor(t_llist *head, t_llistCompareFn compare, void *arg)
 {
-	if (NULL == head || NULL == get)
+	if (NULL == head || NULL == compare)
 		return (NULL);
 	while (head)
 	{
-		if (get(head->data))
+		if (0 == compare(head->data, arg))
 			return (head);
 		head = head->next;
 	}
